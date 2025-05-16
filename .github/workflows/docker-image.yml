@@ -82,4 +82,4 @@ jobs:
               -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
               --network host \
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:pr-${{ github.run_number }}
