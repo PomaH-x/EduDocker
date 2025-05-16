@@ -14,7 +14,7 @@ services:
       retries: 5
 
   app:
-    image: ghcr.io/roman_13/pythondeystvia:pr-${GITHUB_RUN_NUMBER}
+    image: ghcr.io/pomah-x/pythondeystvia:pr-${GITHUB_RUN_NUMBER}
     depends_on:
       db:
         condition: service_healthy
