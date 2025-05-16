@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test -d test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: ghcr.io/xsu-13/pythonactions:pr-${GITHUB_RUN_NUMBER}
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://test:test@db:5432/test
+
+  tests:
+    build:
+      context: .
+      target: test-stage
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://test:test@db:5432/test
+      PYTHONPATH: /usr/src/app
+    volumes:
+      - ./tests:/tests
+    command: tail -f /dev/null
