@@ -77,8 +77,8 @@ jobs:
           port: 58529
           script: |
             podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:pr-${{ github.run_number }}
-            podman stop fastapi_app  true
-            podman rm fastapi_app  true
+            podman stop fastapi_app || true
+            podman rm fastapi_app || true
             podman run -d \
               --name fastapi_app \
               -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
