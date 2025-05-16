@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: Roman_13/pythondeystvia
+  IMAGE_NAME: roman_13/pythondeystvia
   APP_PORT: 8035
   PYTHON_VERSION: '3.10'
 
