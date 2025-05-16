@@ -1,23 +1,15 @@
-FROM python:3.9-slim as builder
+# Stage 1: Test
+# FROM python AS test-stage
 
-WORKDIR /app
-COPY pyproject.toml .
+# WORKDIR /usr/src/app
+# COPY . .
+# RUN make install-dev
 
-RUN pip install --user --upgrade pip && \
-    pip install --user . && \
-    pip cache purge
+# Stage 2: Production
+FROM python 
 
-FROM python:3.9-slim
+WORKDIR /usr/src/app
+COPY . .
+RUN make install
 
-WORKDIR /app
-
-COPY --from=builder /root/.local /root/.local
-COPY kubsu/ ./kubsu/
-COPY app.py .
-
-ENV PATH=/root/.local/bin:$PATH
-ENV PYTHONPATH=/app
-
-EXPOSE 8015
-
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8015"]
+CMD make run
