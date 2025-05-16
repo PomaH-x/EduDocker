@@ -76,9 +76,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 58529
           script: |
-            podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            podman stop fastapi_app  true
-            podman rm fastapi_app  true
+            podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
             podman run -d \
               --name fastapi_app \
               -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
