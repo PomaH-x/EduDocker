@@ -39,6 +39,7 @@ jobs:
           push: true
           file: Dockerfile 
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:pr-${{ github.run_number }}
+          target: prod
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
