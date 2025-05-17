@@ -13,3 +13,5 @@ COPY . .
 RUN make install
 
 CMD make run
+
+
