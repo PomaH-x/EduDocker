@@ -9,5 +9,11 @@ install-dev:
 test:
 	pytest tests
 
+# run:
+# 	uvicorn src.main:app --reload
+
 run:
-	uvicorn src.main:app --reload
+    uvicorn app.main:app \
+        --host 0.0.0.0 \
+        --port ${APP_PORT}
+

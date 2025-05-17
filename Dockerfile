@@ -6,10 +6,21 @@ COPY . .
 RUN make install-dev
 
 # Stage 2: Production
-FROM python AS prod
+# FROM python AS prod
+
+# WORKDIR /usr/src/app
+# COPY . .
+# RUN make install
+
+# CMD make run
+
+FROM python:3.10-slim AS prod
 
 WORKDIR /usr/src/app
 COPY . .
 RUN make install
 
-CMD make run
+ENV APP_PORT=8035
+EXPOSE ${APP_PORT}
+
+CMD ["make", "run"]
