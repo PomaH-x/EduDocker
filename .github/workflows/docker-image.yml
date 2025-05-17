@@ -81,7 +81,7 @@ jobs:
             podman rm fastapi_app || true
             podman run -d \
               --name fastapi_app \
-              -p ${{ env.APP_PORT }}:${{ env.APP_PORT }} \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
               --network host \
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:pr-${{ github.run_number }}
+              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:pr-${{ github.run_number }} \
+              uvicorn src.main:app --reload --port 8035 --host 0.0.0.0
